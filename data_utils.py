@@ -1,12 +1,18 @@
 import re
+import pandas as pd
+import csv
+import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
+
+
 class Utility(object):
     @staticmethod
     def clean(line):
         line = line.lower()
         line = line.replace('?', ' ?')
         line = re.sub(' +',' ', line)
-        return line.strip()     
-    
+        return line.strip()
+
     @staticmethod
     def read_dataset(dataset):
         path="dataset/VQAMed2018"+dataset+"/VQAMed2018"+dataset+"-QA.csv"
@@ -26,3 +32,13 @@ class Utility(object):
         else:
             return images, df["question"], df["answer"]
 
+
+    @staticmethod
+    def show_image(id, images, questions, answers):
+        fname = images[id]
+        img=mpimg.imread(fname, format="jpg")
+        print ("Image name :", fname)
+        print ("Question   :", questions[id])
+        print ("Answer     :", answers[id] )
+        plt.imshow(img)
+        plt.show()
